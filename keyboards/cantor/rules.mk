@@ -1,2 +1,6 @@
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = usart
+
+
+TAP_DANCE_ENABLE = yes      # Tap Dance
+CAPS_WORD_ENABLE = yes
