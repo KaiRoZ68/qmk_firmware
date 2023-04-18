@@ -12,7 +12,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  * compile mit dem Befehl:
  * qmk compile -e CONVERT_TO=promicro_rp2040
  */
@@ -42,16 +42,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
     QK_GESC,       KC_Q,    KC_W,    KC_E,      KC_R,          KC_T,                                                KC_Y,           KC_U,   KC_I,     KC_O,     KC_P,    KC_BSPC,
-    KC_TAB,        KC_A,    KC_S ,   KC_D,      KC_F,          KC_G,                                                KC_H,           KC_J,   KC_K,     KC_L,     KC_SCLN, KC_ENTER,
-    OSM(MOD_LSFT), KC_Z,    KC_X,    KC_C,      KC_V,          KC_B,    CW_TOGG,         CG_TOGG, KC_INS,   NUMP,   KC_N,           KC_M,   KC_COMM,  KC_DOT,   KC_SLSH, OSM(MOD_RSFT),
-                                     XXXXXXX,   OSM(MOD_LCTL), LOWER,   KC_LGUI, LALT_T(KC_INS),  RALT_T(KC_DEL), KC_SPC, RAISE,  OSM(MOD_RCTL), XXXXXXX
+    LSFT_T(KC_TAB),        KC_A,    KC_S ,   KC_D,      KC_F,          KC_G,                                                KC_H,           KC_J,   KC_K,     KC_L,     KC_SCLN, RSFT_T(KC_ENTER),
+    KC_LSFT, KC_Z,    KC_X,    KC_C,      KC_V,          KC_B,    CW_TOGG,         CG_TOGG, KC_INS,   NUMP,   KC_N,           KC_M,   KC_COMM,  KC_DOT,   KC_SLSH, KC_RSFT,
+                                     XXXXXXX,   OSM(MOD_LCTL), LOWER,   LGUI_T(KC_SPC), LALT_T(KC_INS),  RALT_T(KC_DEL), RGUI_T(KC_SPC), RAISE,  OSM(MOD_RCTL), XXXXXXX
 ),
 
 /* Lower */
 
 [_LOWER] = LAYOUT(
     LSFT(KC_GRAVE),     LSFT(KC_1),      LSFT(KC_2),     LSFT(KC_3), LSFT(KC_4),    LSFT(KC_5),                                         LSFT(KC_6),     LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0), _______,
-    _______,            RALT(KC_8),      KC_NUBS,        RALT(KC_7), RALT(KC_NUBS), _______,                                            LSFT(KC_RBRC),  KC_MINUS,   KC_QUOTE,   KC_LBRC,    _______,    _______,
+    _______,            RALT(KC_8),      KC_NUBS,        RALT(KC_7), RALT(KC_NUBS), _______,                                            LSFT(KC_RBRC),  KC_MINUS,   KC_QUOTE,   KC_LBRC,    LSFT(KC_MINUS),    _______,
     _______,            RALT(KC_9),      LSFT(KC_NUBS),  RALT(KC_0), RALT(KC_MINS), _______,  _______,  _______,  _______,  _______,    _______,        KC_EQUAL,   KC_RBRC,    KC_BSLS,    _______,    _______,
                                                          XXXXXXX,    _______,       _______,  _______,  _______,  _______,  _______,    _______,        _______,    XXXXXXX
 ),
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT(
     _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI,                                                       RGB_HUD,    RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD,  _______ ,
     _______, _______, _______, _______, _______, _______,                                                       _______,    _______,  _______,  _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______,                   _______,  _______,_______,    _______,  _______,  _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______,                   _______,  _______, _______,    _______,  _______,  _______, _______, _______,
                                         XXXXXXX, _______, _______, _______,                   _______,  _______,  _______,  _______, _______,   XXXXXXX
   ),
 
@@ -385,6 +385,8 @@ bool oled_task_user(void) {
             0,  0,  0,  0,  0,  0,  0,  3,  7, 15, 62,124,248,240,224,192,128,  1,  3,  7, 15, 30, 28, 60, 56,120,112,112,224,224,225,231,254,248,255,255,248,254,231,225,224,224,112,112,120, 56, 60, 28, 30, 15,  7,  3,  1,128,192,224,240,248,124, 62, 15,  7,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
             0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  3,  7, 15, 14, 30, 28, 60, 56,120,112,112,112,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,224,112,112,112,120, 56, 60, 28, 30, 14, 15,  7,  3,  1,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
         };
+
+
         // clang-format on
         oled_write_raw_P(kyria_logo, sizeof(kyria_logo));
     }

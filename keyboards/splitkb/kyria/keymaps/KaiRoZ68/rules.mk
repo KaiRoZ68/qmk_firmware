@@ -5,5 +5,4 @@ RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 BACKLIGHT_DRIVER = software
 CAPS_WORD_ENABLE = yes
 TAP_DANCE_ENABLE = yes      # Tap Dance
-RGBLIGHT_DRIVER = WS2812B
 
