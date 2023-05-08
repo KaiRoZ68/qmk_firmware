@@ -41,10 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty */
 
 [_QWERTY] = LAYOUT(
-    QK_GESC,       KC_Q,    KC_W,    KC_E,      KC_R,          KC_T,                                                KC_Y,           KC_U,   KC_I,     KC_O,     KC_P,    KC_BSPC,
-    LSFT_T(KC_TAB),        KC_A,    KC_S ,   KC_D,      KC_F,          KC_G,                                                KC_H,           KC_J,   KC_K,     KC_L,     KC_SCLN, RSFT_T(KC_ENTER),
-    KC_LSFT, KC_Z,    KC_X,    KC_C,      KC_V,          KC_B,    CW_TOGG,         CG_TOGG, KC_INS,   NUMP,   KC_N,           KC_M,   KC_COMM,  KC_DOT,   KC_SLSH, KC_RSFT,
-                                     XXXXXXX,   OSM(MOD_LCTL), LOWER,   LGUI_T(KC_SPC), LALT_T(KC_INS),  RALT_T(KC_DEL), RGUI_T(KC_SPC), RAISE,  OSM(MOD_RCTL), XXXXXXX
+    QK_GESC,       KC_Q,    KC_W,    KC_E,      KC_R,          KC_T,                                                      KC_Y,   KC_U,   KC_I,     KC_O,     KC_P,    KC_BSPC,
+    KC_TAB,        KC_A,    KC_S ,   KC_D,      KC_F,          KC_G,                                                      KC_H,   KC_J,   KC_K,     KC_L,     KC_SCLN, KC_ENTER,
+    KC_LSFT,       KC_Z,    KC_X,    KC_C,      KC_V,          KC_B,    KC_DEL,    CW_TOGG,     NUMP,     LSFT(KC_LCTL),   KC_N,   KC_M,   KC_COMM,  KC_DOT,   KC_SLSH, KC_RSFT,
+                                     KC_MUTE,   OSM(MOD_LCTL), LOWER,   KC_LGUI ,  KC_LALT,     RALT_T(KC_SPC), KC_SPC,   RAISE,  OSM(MOD_RCTL), XXXXXXX
 ),
 
 /* Lower */
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = LAYOUT(
     _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI,                                                       RGB_HUD,    RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD,  _______ ,
-    _______, _______, _______, _______, _______, _______,                                                       _______,    _______,  _______,  _______, _______, _______,
+    _______, _______, _______, _______, _______, CG_TOGG,                                                       _______,    _______,  _______,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______,                   _______,  _______, _______,    _______,  _______,  _______, _______, _______,
                                         XXXXXXX, _______, _______, _______,                   _______,  _______,  _______,  _______, _______,   XXXXXXX
   ),
@@ -78,9 +78,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Layer Numpad */
 
 [_NUMPAD] = LAYOUT(
-    _______, KC_HOME , KC_UP,   KC_END,   _______, _______,                                                     _______,    KC_KP_7,  KC_KP_8,  KC_KP_9, KC_PSLS, _______,
-    _______, KC_LEFT, KC_DOWN,  KC_RIGHT, _______, _______,                                                     _______,    KC_KP_4,  KC_KP_5,  KC_KP_6, KC_PAST, KC_PENT,
-    _______, _______, _______,  _______,  _______, _______, _______, _______,               KC_NUM,  NUMP,      _______,    KC_KP_1,  KC_KP_2,  KC_KP_3, _______, _______,
+    _______, KC_HOME , KC_UP,   KC_END,   _______, _______,                                                     XXXXXXX,    KC_KP_7,  KC_KP_8,  KC_KP_9, KC_PSLS, _______,
+    _______, KC_LEFT, KC_DOWN,  KC_RIGHT, _______, _______,                                                     XXXXXXX,    KC_KP_4,  KC_KP_5,  KC_KP_6, KC_PAST, KC_PENT,
+    _______, _______, _______,  _______,  _______, _______, _______, _______,                 NUMP,  KC_NUM,    XXXXXXX,    KC_KP_1,  KC_KP_2,  KC_KP_3, _______, _______,
                                 XXXXXXX,  _______, _______, _______,  _______,              KC_PPLS, KC_PMNS,   KC_KP_0,    KC_PDOT,  XXXXXXX
 )
 
@@ -373,6 +373,16 @@ bool oled_task_user(void) {
         oled_write_P(led_usb_state.num_lock    ? PSTR("NUMLCK ") : PSTR("       "), false);
         oled_write_P(led_usb_state.caps_lock   ? PSTR("CAPLCK ") : PSTR("       "), false);
         oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
+
+        /* Write Caps_Word_Status to OLEDs
+        void caps_word_set_user(bool active)  {
+            if (active) {
+                oled_write_P(PSTR("CAPSWORD"),false);
+            } else {
+                oled_write_P(PSTR("nix"),false);
+            }
+        }
+*/
     } else {
         // clang-format off
         static const char PROGMEM kyria_logo[] = {
@@ -415,3 +425,25 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
+
+
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+        case KC_SLSH:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
+
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
+    }
+}
+
