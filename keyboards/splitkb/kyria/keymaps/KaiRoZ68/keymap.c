@@ -23,7 +23,8 @@ enum layers {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _NUMPAD
+  _NUMPAD,
+  _ARMA
 };
 
 enum tap_dance_codes {
@@ -37,7 +38,38 @@ enum tap_dance_codes {
 #define RAISE MO(_RAISE)
 #define NUMP TG(_NUMPAD)
 #define ADJU MO(_ADJUST)
+#define ARMA TG(_ARMA)
+
 #define WBSPC LCTL(KC_BSPC)
+
+/*Arma Belegung
+Bewegung
+#define MovF KC_W
+#define MovB KC_S
+#define MovL KC_A
+#define MovR KC_D
+#define Lay KC_Y
+#define Knee KC_X
+
+*/
+
+//Waffe
+
+//#define ChWpn
+#define ChGrnd LCTL(KC_G)
+//#define TrwGrnd
+#define RldWpn KC_R
+/*
+Tools
+#define Talk
+#define Map
+#define Bncls
+#define
+*/
+
+
+
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty */
@@ -45,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
     QK_GESC,       KC_Q,    KC_W,    KC_E,      KC_R,          KC_T,                                                                    KC_Y,   KC_U,           KC_I,       KC_O,     KC_P,    KC_BSPC,
     KC_TAB,        KC_A,    KC_S ,   KC_D,      KC_F,          KC_G,                                                                    KC_H,   KC_J,           KC_K,       KC_L,     KC_SCLN, KC_ENTER,
-    KC_LSFT,       KC_Z,    KC_X,    KC_C,      KC_V,          KC_B,    KC_DEL,    CW_TOGG,         NUMP,                   XXXXXXX,    KC_N,   KC_M,           KC_COMM,    KC_DOT,   KC_SLSH, KC_RSFT,
-                                     KC_MUTE,   OSM(MOD_LCTL), LOWER,   KC_LGUI ,  LALT_T(KC_DEL),  MT(MOD_RALT, WBSPC),       KC_SPC,     RAISE,  OSM(MOD_RCTL),  XXXXXXX
+    KC_LSFT,       KC_Z,    KC_X,    KC_C,      KC_V,          KC_B,    CW_TOGG,   ARMA,                NUMP,   XXXXXXX,    KC_N,   KC_M,           KC_COMM,    KC_DOT,   KC_SLSH, KC_RSFT,
+                                     KC_MUTE,   OSM(MOD_LCTL), LOWER,   KC_LGUI ,  LALT_T(KC_DEL),      RALT_T(WBSPC),       KC_SPC,     RAISE,  OSM(MOD_RCTL),  XXXXXXX
 ),
 
 /* Lower */
@@ -76,7 +108,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         XXXXXXX, _______, _______, _______,                   _______,  _______,  _______,  _______, _______,   XXXXXXX
   ),
 
-
+[_ARMA] = LAYOUT(
+    _______,KC_T,KC_Q,    KC_W,  KC_E,   RldWpn   ,                                        KC_Y,   KC_U,           KC_I,       KC_O,     KC_P,    KC_BSPC,
+    _______,ChGrnd,KC_A,    KC_S,  KC_D,   KC_F   ,                                        KC_H,   KC_J,           KC_K,       KC_L,     KC_SCLN, KC_ENTER,
+    _______,KC_B,KC_Z,    KC_X,  KC_C,   KC_V   ,_______, ARMA,          _______,_______,KC_N,   KC_M,           KC_COMM,    KC_DOT,   KC_SLSH, KC_RSFT,
+                          KC_F1, KC_LCTL,KC_LSFT   ,LGUI_T(KC_SPC),KC_LALT,        _______,_______,_______,_______,XXXXXXX
+  ),
 /* Layer Numpad */
 
 [_NUMPAD] = LAYOUT(
@@ -365,6 +402,9 @@ bool oled_task_user(void) {
                 break;
             case _NUMPAD:
                 oled_write_P(PSTR("Numpad\n"), false);
+                break;
+            case _ARMA:
+                oled_write_P(PSTR("ARMA3\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);
