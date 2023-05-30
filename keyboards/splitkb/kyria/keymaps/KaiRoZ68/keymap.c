@@ -24,7 +24,8 @@ enum layers {
   _RAISE,
   _ADJUST,
   _NUMPAD,
-  _ARMA
+  _ARMA,
+  _MOUSE
 };
 
 enum tap_dance_codes {
@@ -40,6 +41,7 @@ enum tap_dance_codes {
 #define NUMP TG(_NUMPAD)
 #define ADJU MO(_ADJUST)
 #define ARMA TG(_ARMA)
+#define Mouse TG(_MOUSE)
 
 #define WBSPC LCTL(KC_BSPC)
 
@@ -78,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT(
     QK_GESC,       KC_Q,    KC_W,    KC_E,      KC_R,          KC_T,                                                                    KC_Y,   KC_U,           KC_I,       KC_O,     KC_P,    TD(DANCE_5),
     KC_TAB,        KC_A,    KC_S ,   KC_D,      KC_F,          KC_G,                                                                    KC_H,   KC_J,           KC_K,       KC_L,     KC_SCLN, KC_ENTER,
-    KC_LSFT,       KC_Z,    KC_X,    KC_C,      KC_V,          KC_B,    CW_TOGG,   ARMA,                NUMP,   XXXXXXX,    KC_N,   KC_M,           KC_COMM,    KC_DOT,   KC_SLSH, KC_RSFT,
+    KC_LSFT,       KC_Z,    KC_X,    KC_C,      KC_V,          KC_B,    CW_TOGG,   ARMA,                NUMP,   Mouse,    KC_N,   KC_M,           KC_COMM,    KC_DOT,   KC_SLSH, KC_RSFT,
                                      KC_MUTE,   OSM(MOD_LCTL), LOWER,   KC_LGUI ,  LALT_T(KC_DEL),      RALT_T(KC_SPC),       KC_SPC,     RAISE,  OSM(MOD_RCTL),  XXXXXXX
 ),
 
@@ -122,6 +124,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,_______, KC_LEFT, KC_DOWN,  KC_RIGHT, _______,                                                       XXXXXXX,    KC_KP_4,  KC_KP_5,  KC_KP_6, KC_PAST, KC_PENT,
     _______, _______, _______,  _______,  _______, _______, _______, _______,                 NUMP,  KC_NUM,    XXXXXXX,    KC_KP_1,  KC_KP_2,  KC_KP_3, _______, _______,
                                 XXXXXXX,  _______, _______, _______,  _______,              KC_PPLS, KC_PMNS,   KC_KP_0,    KC_PDOT,  XXXXXXX
+),
+
+/* Layer Mouse */
+
+[_MOUSE] = LAYOUT(
+    _______,_______,_______,_______,_______,_______,                                        KC_ACL0,KC_ACL1,KC_ACL2,_______,_______,_______,
+    _______,_______,_______,KC_WH_U,KC_WH_D,_______,                                        KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,_______,_______,
+    _______,_______,_______,_______,_______,_______,_______,_______,        _______,Mouse  ,_______,_______,_______,_______,_______,_______,
+                            _______,_______,_______,_______,_______,       KC_BTN1,KC_BTN2,KC_BTN3,_______,_______
+
 )
 
 };
@@ -446,22 +458,25 @@ bool oled_task_user(void) {
         oled_write_P(PSTR("Layer: "), false);
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _QWERTY:
-                oled_write_P(PSTR("QWERTZ\n"), false);
+                oled_write_P(PSTR("BASE\n"), false);
                 break;
             case _LOWER:
-                oled_write_P(PSTR("Symbole\n"), false);
+                oled_write_P(PSTR("RAISE\n"), false);
                 break;
             case _RAISE:
-                oled_write_P(PSTR("Nav+Zahlen\n"), false);
+                oled_write_P(PSTR("LOWER\n"), false);
                 break;
             case _ADJUST:
-                oled_write_P(PSTR("Config\n"), false);
+                oled_write_P(PSTR("CONFIG\n"), false);
                 break;
             case _NUMPAD:
-                oled_write_P(PSTR("Numpad\n"), false);
+                oled_write_P(PSTR("NUMPAD\n"), false);
                 break;
             case _ARMA:
                 oled_write_P(PSTR("ARMA3\n"), false);
+                break;
+            case _MOUSE:
+                oled_write_P(PSTR("MOUSE\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("Undefined\n"), false);

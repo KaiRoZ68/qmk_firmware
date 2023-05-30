@@ -35,12 +35,17 @@
 #    endif
 #endif
 
-#define MOUSEKEY_WHEEL_INTERVAL 1
 
 // Lets you roll mod-tap keys
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define WS2812_PIO_USE_PIO1
+
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_MAX_SPEED 5
+#define MOUSEKEY_WHEEL_MAX_SPEED 5
+#define MOUSEKEY_WHEEL_INTERVAL 80
+
 
 
 
