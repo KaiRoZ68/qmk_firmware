@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  TD(DANCE_1),   TD(DANCE_2),    TD(DANCE_3),    TD(DANCE_4),    KC_5,                                                   KC_6,    KC_7,    KC_8,    KC_9,     KC_0,     _______,
     _______, KC_F11,        KC_F12,         KC_PGUP,        KC_PGDN,        KC_HOME,                                                KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_END,   _______,
     _______, KC_F1,         KC_F2,          KC_F3,          KC_F4,          KC_F5,      _______,  _______,  KC_PGUP,  KC_PGDN,      KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10 ,  _______,
-                                            XXXXXXX,        _______,       KC_ESC,     _______,  _______,  _______,  _______,      _______, _______, XXXXXXX
+                                            XXXXXXX,        _______,       _______,     _______,  _______,  _______,  _______,      _______, _______, XXXXXXX
 ),
 
 /* Adjust (Lower + Raise) */
@@ -539,10 +539,10 @@ bool oled_task_user(void) {
                 oled_write_P(PSTR("BASE\n"), false);
                 break;
             case _LOWER:
-                oled_write_P(PSTR("RAISE\n"), false);
+                oled_write_P(PSTR("LOWER\n"), false);
                 break;
             case _RAISE:
-                oled_write_P(PSTR("LOWER\n"), false);
+                oled_write_P(PSTR("RAISE\n"), false);
                 break;
             case _ADJUST:
                 oled_write_P(PSTR("CONFIG\n"), false);
