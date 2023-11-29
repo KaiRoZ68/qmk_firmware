@@ -29,6 +29,8 @@
   #define OLED_TIMEOUT 300000
 #endif
 
+#define PERMISSVE_HOLD
+
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #define WS2812_PIO_USE_PIO1
