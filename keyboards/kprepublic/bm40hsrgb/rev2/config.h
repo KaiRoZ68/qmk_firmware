@@ -24,6 +24,10 @@
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
+#define PERMISSVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
 

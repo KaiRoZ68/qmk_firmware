@@ -28,29 +28,31 @@ enum tap_dance_codes {
     DANCE_2,
     DANCE_3,
     DANCE_4,
+    DANCE_5
 };
 
 #define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
+#define RAISE LT(_RAISE,KC_BSPC)
 #define NUMP TG(_NUMPAD)
+#define WBSPC LCTL(KC_BSPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty */
 
 [_QWERTY] = LAYOUT_ortho_4x12_1x2uC(
-    QK_GESC,       KC_Q,    KC_W,    KC_E,              KC_R,    KC_T,    KC_Y,    KC_U,            KC_I,           KC_O,           KC_P,    KC_BSPC,
-    KC_TAB,        KC_A,    KC_S ,   KC_D,              KC_F,    KC_G,    KC_H,    KC_J,            KC_K,           KC_L,           KC_SCLN, KC_ENTER,
-    OSM(MOD_LSFT), KC_Z,    KC_X,    KC_C,              KC_V,    KC_B,    KC_N,    KC_M,            KC_COMM,        KC_DOT,         KC_SLSH, OSM(MOD_RSFT),
-    OSM(MOD_LCTL), NUMP,    KC_LGUI, LALT_T(KC_INS),    LOWER,   KC_SPC,           RAISE,           RALT_T(KC_DEL), C_S_T(KC_SPC),  CG_TOGG, OSM(MOD_RCTL)
+    QK_GESC,       KC_Q,    KC_W,           KC_E,           KC_R,           KC_T,    KC_Y,    KC_U,         KC_I,             KC_O,           KC_P,             TD(DANCE_5),
+    KC_TAB,        KC_A,    KC_S,           KC_D,           KC_F,           KC_G,    KC_H,    KC_J,         KC_K,             KC_L,           KC_SCLN,          KC_ENTER,
+    OSM(MOD_LSFT), LSFT_T(KC_Z),    KC_X,   KC_C,           KC_V,           KC_B,    KC_N,    KC_M,         KC_COMM,          KC_DOT,         RSFT_T(KC_SLSH),  OSM(MOD_RSFT),
+    OSM(MOD_LCTL), NUMP,    KC_LGUI,        LALT_T(KC_INS), LOWER,              KC_SPC,       RAISE,        RALT_T(KC_DEL),   C_S_T(KC_SPC),  CG_TOGG,           OSM(MOD_RCTL)
 ),
 
 /* Lower */
 
 [_LOWER] = LAYOUT_ortho_4x12_1x2uC(
     LSFT(KC_GRAVE),     LSFT(KC_1),      LSFT(KC_2),     LSFT(KC_3), LSFT(KC_4),    LSFT(KC_5),     LSFT(KC_6),     LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0), _______,
-    _______,            RALT(KC_8),      KC_NUBS,        RALT(KC_7), RALT(KC_NUBS), _______,        LSFT(KC_RBRC),  KC_MINUS,   KC_QUOTE,   KC_LBRC,    _______,    _______,
-    _______,            RALT(KC_9),      LSFT(KC_NUBS),  RALT(KC_0), RALT(KC_MINS), _______,        _______,        KC_EQUAL,   KC_RBRC,    KC_BSLS,    _______,    _______,
+    _______,            RALT(KC_8),      KC_NUBS,        RALT(KC_7), RALT(KC_NUBS), _______,        LSFT(KC_RBRC),  KC_MINUS,   KC_QUOTE,   KC_LBRC,    LSFT(KC_MINUS),    _______,
+    _______,            RALT(KC_9),      LSFT(KC_NUBS),  RALT(KC_0), RALT(KC_MINS), _______,        LSFT(KC_BSLS),  KC_EQUAL,   KC_RBRC,    KC_BSLS,    _______,    _______,
     _______,            _______,         _______,        _______,    _______,       _______,                        _______,    _______,    _______,    _______,    _______
 ),
 
@@ -317,6 +319,56 @@ void dance_4_reset(tap_dance_state_t *state, void *user_data) {
 	dance_state.step = 0;
     }
 }
+/*DANCE_5===============================================================================*/
+
+void on_dance_5(tap_dance_state_t *state, void *user_data);
+uint8_t dance_5_dance_step(tap_dance_state_t *state);
+void dance_5_finished(tap_dance_state_t *state, void *user_data);
+void dance_5_reset(tap_dance_state_t *state, void *user_data);
+
+void on_dance_5(tap_dance_state_t *state, void *user_data) {
+	if(state->count == 3) {
+		tap_code16(KC_BSPC);
+		tap_code16(KC_BSPC);
+		tap_code16(KC_BSPC);
+	}
+	if(state->count > 3) {
+		tap_code16(KC_BSPC);
+	}
+}
+
+uint8_t dance_5_dance_step(tap_dance_state_t *state) {
+	if (state->count == 1) {
+		if (state->interrupted || !state->pressed) return SINGLE_TAP;
+		else return SINGLE_HOLD;
+	} else if (state->count == 2) {
+		if (state->interrupted) return DOUBLE_SINGLE_TAP;
+		else if (state->pressed) return DOUBLE_HOLD;
+		else return DOUBLE_TAP;
+	}
+	return MORE_TAPS;
+}
+void dance_5_finished(tap_dance_state_t *state, void *user_data) {
+	dance_state.step = dance_5_dance_step(state);
+	switch (dance_state.step) {
+		case SINGLE_TAP: register_code16(KC_BSPC); break;
+		case SINGLE_HOLD: register_code16(WBSPC); break;
+		case DOUBLE_TAP: register_code16(KC_BSPC); register_code16(KC_BSPC); break;
+		case DOUBLE_SINGLE_TAP: tap_code16(KC_BSPC); register_code16(KC_BSPC);
+	}
+}
+
+void dance_5_reset(tap_dance_state_t *state, void *user_data) {
+	wait_ms(10);
+	switch (dance_state.step) {
+		case SINGLE_TAP: unregister_code16(KC_BSPC); break;
+		case SINGLE_HOLD: unregister_code16(WBSPC); break;
+		case DOUBLE_TAP: unregister_code16(KC_BSPC); break;
+		case DOUBLE_SINGLE_TAP: unregister_code16(KC_BSPC); break;
+
+	dance_state.step = 0;
+    }
+}
 
 /*Tap Dance action=============================================================================*/
 tap_dance_action_t tap_dance_actions[] = {
@@ -324,6 +376,8 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_2] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_2, dance_2_finished, dance_2_reset),
         [DANCE_3] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_3, dance_3_finished, dance_3_reset),
         [DANCE_4] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_4, dance_4_finished, dance_4_reset),
+        [DANCE_5] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_5, dance_5_finished, dance_5_reset),
+
 };
 
 //Caps Word Configuration
