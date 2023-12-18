@@ -44,46 +44,18 @@ enum tap_dance_codes {
 #define RAISE LT(_RAISE,KC_BSPC)
 #define NUMP TG(_NUMPAD)
 #define ADJU MO(_ADJUST)
-#define ARMA TG(_ARMA)
-#define Mouse TG(_MOUSE)
+
 
 #define WBSPC LCTL(KC_BSPC)
-
-/*Arma Belegung
-Bewegung
-#define MovF KC_W
-#define MovB KC_S
-#define MovL KC_A
-#define MovR KC_D
-#define Lay KC_Y
-#define Knee KC_X
-
-*/
-
-//Waffe
-
-//#define ChWpn
-#define ChGrnd LCTL(KC_G)
-//#define TrwGrnd
-#define RldWpn KC_R
-/*
-Tools
-#define Talk
-#define Map
-#define Bncls
-#define
-*/
-
-
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty */
 
 [_QWERTY] = LAYOUT(
-    QK_GESC,       KC_Q,            KC_W,           KC_E,           KC_R,          KC_T,                                                              TD(DANCE_Y),   KC_U,           KC_I,       	KC_O,           KC_P,               TD(DANCE_5),
-    KC_TAB,        KC_A,            LALT_T(KC_S),   LCTL_T(KC_D),   LGUI_T(KC_F),  KC_G,                                                              KC_H,   RGUI_T(KC_J),   RCTL_T(KC_K), RALT_T(KC_L),   KC_SCLN,            KC_ENTER,
-    KC_LSFT,       LSFT_T(KC_Z),    TD(DANCE_X),    TD(DANCE_C),    TD(DANCE_V),          KC_B,  XXXXXXX,          CW_TOGG,          NUMP,  		  XXXXXXX,KC_N,   KC_M,           KC_COMM,    	KC_DOT,         RSFT_T(KC_SLSH),    KC_RSFT,
+    QK_GESC,       KC_Q,            KC_W,           KC_E,           KC_R,          KC_T,                                                              TD(DANCE_Y),   KC_U,           KC_I,       KC_O,          KC_P,              TD(DANCE_5),
+    KC_TAB,        KC_A,            LALT_T(KC_S),   LCTL_T(KC_D),   LGUI_T(KC_F),  KC_G,                                                              KC_H,   RGUI_T(KC_J),   RCTL_T(KC_K),      RALT_T(KC_L),  KC_SCLN,           KC_ENTER,
+    KC_LSFT,       LSFT_T(KC_Z),    TD(DANCE_X),    TD(DANCE_C),    TD(DANCE_V),   KC_B,  XXXXXXX,          CW_TOGG,          NUMP,  		  XXXXXXX,KC_N,   KC_M,           KC_COMM,   KC_DOT,        RSFT_T(KC_SLSH),   KC_RSFT,
                                                     KC_MUTE,        OSM(MOD_LCTL), LOWER, LGUI_T(KC_ENTER) ,LALT_T(KC_ENTER), RALT_T(KC_DEL), KC_SPC, RAISE,  OSM(MOD_RCTL),  XXXXXXX
 ),
 
@@ -108,18 +80,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Adjust (Lower + Raise) */
 
 [_ADJUST] = LAYOUT(
-    _______, QK_BOOT, DB_TOGG, _______, _______, _______,                                                       RGB_TOG,    RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, _______ ,
-    QK_BOOTLOADER	, _______, _______, _______, _______, CG_TOGG,                                             _______,     _______, RGB_HUD,  RGB_SAD, RGB_VAD, QK_BOOTLOADER,
-    QK_MAKE, _______, _______, _______, _______, _______, _______, _______,                     _______,  _______, _______,    _______,  _______,  _______, _______, _______,
+    _______,          QK_BOOT, DB_TOGG, _______, _______, _______,                                        RGB_TOG,      RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, _______ ,
+    QK_BOOTLOADER	, _______, _______, _______, _______, CG_TOGG,                                        _______,      _______, RGB_HUD,  RGB_SAD, RGB_VAD, QK_BOOTLOADER,
+    QK_MAKE, _______, _______, _______, _______, _______, _______, _______,                     _______,  _______,      _______, _______,  _______, _______, _______, _______,
                                XXXXXXX, _______, _______, _______, _______,                     _______,  _______,  _______, _______,   XXXXXXX
   ),
 
-[_ARMA] = LAYOUT(
-    _______,KC_T,KC_Q,    KC_W,  KC_E,   RldWpn   ,                                        KC_Y,   KC_U,           KC_I,       KC_O,     KC_P,    KC_BSPC,
-    _______,ChGrnd,KC_A,    KC_S,  KC_D,   KC_F   ,                                        KC_H,   KC_J,           KC_K,       KC_L,     KC_SCLN, KC_ENTER,
-    _______,KC_B,KC_Z,    KC_X,  KC_C,   KC_V   ,_______, ARMA,          _______,_______,KC_N,   KC_M,           KC_COMM,    KC_DOT,   KC_SLSH, KC_RSFT,
-                          KC_F1, KC_LCTL,KC_LSFT   ,LGUI_T(KC_SPC),KC_LALT,        _______,_______,_______,_______,XXXXXXX
-  ),
 /* Layer Numpad */
 
 [_NUMPAD] = LAYOUT(
@@ -127,18 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,_______, KC_LEFT, KC_DOWN,  KC_RIGHT, _______,                                                       XXXXXXX,    KC_KP_4,  KC_KP_5,  KC_KP_6, KC_PAST, KC_PENT,
     _______, _______, _______,  _______,  _______, _______, _______, _______,                 NUMP,  KC_NUM,    XXXXXXX,    KC_KP_1,  KC_KP_2,  KC_KP_3, KC_PMNS, _______,
                                 XXXXXXX,  _______, _______, _______,  _______,              KC_PPLS, _______,   KC_KP_0,    KC_PDOT,  XXXXXXX
-),
-
-/* Layer Mouse */
-
-[_MOUSE] = LAYOUT(
-    _______,_______,_______,_______,_______,_______,                                        KC_ACL0,KC_ACL1,KC_ACL2,_______,_______,_______,
-    _______,_______,_______,KC_WH_U,KC_WH_D,_______,                                        KC_MS_L,KC_MS_D,KC_MS_U,KC_MS_R,_______,_______,
-    _______,_______,_______,_______,_______,_______,_______,_______,        _______,Mouse  ,_______,_______,_______,_______,_______,_______,
-                            _______,_______,_______,_______,_______,       KC_BTN1,KC_BTN2,KC_BTN3,_______,_______
-
 )
-
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -642,7 +597,6 @@ tap_dance_action_t tap_dance_actions[] = {
         [DANCE_C] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_C, dance_C_finished, dance_C_reset),
         [DANCE_V] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_V, dance_V_finished, dance_V_reset),
         [DANCE_Y] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_Y, dance_Y_finished, dance_Y_reset),
-
 };
 
 
