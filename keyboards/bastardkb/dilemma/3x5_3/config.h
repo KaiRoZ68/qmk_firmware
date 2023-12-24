@@ -17,19 +17,22 @@
 
 #pragma once
 
-/* Key matrix configuration. */
+/* Key matrix configuration.*/
 #define MATRIX_ROW_PINS \
     { GP4, GP5, GP27, GP26 }
 #define MATRIX_COL_PINS \
     { GP8, GP9, GP7, GP6, GP28 }
+
 
 /* Handedness. */
 #define SPLIT_HAND_PIN GP29
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
 /* RGB settings. */
-#define RGB_DI_PIN GP0  // Per-key.
-// #define RGB_DI_PIN GP10 // Underglow.
+//#define RGB_DI_PIN GP0
+#define WS2812_DI_PIN GP0  // Per-key.
+//#define RGB_DI_PIN GP10 // Underglow.
+
 
 /* CRC. */
 #define CRC8_USE_TABLE
@@ -45,6 +48,19 @@
 #define CIRQUE_PINNACLE_TAP_ENABLE
 #define CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE
 
+/*Tapping Term*/
+//#define TAPPING_TERM 170
+//#define TAPPING_TERM_PER_KEY
+#define PERMISSIVE_HOLD
+#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+//#define HOLD_ON_OTHER_KEY_PRESS
+//#define IGNORE_MOD_TAP_INTERRUPT
+
+
+/*Combos*/
+#define COMBO_COUNT 2
+#define COMBO_TERM 200
+
 
 /* OLED over i2c. */
 #define I2C1_CLOCK_SPEED 400000
@@ -56,7 +72,8 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
-/* RGB settings. */
+
+//RGB_SUPPORT
 #define RGBLED_NUM 36
 #define RGBLED_SPLIT \
     { 18, 18 }
@@ -64,10 +81,10 @@
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#    define RGB_MATRIX_LED_COUNT 36
+#    define RGB_MATRIX_SPLIT { 18, 18 }
 #    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-#    define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #    define RGB_DISABLE_WHEN_USB_SUSPENDED
 #    define RGB_MATRIX_KEYPRESSES
 #endif
+

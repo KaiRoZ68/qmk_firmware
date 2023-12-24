@@ -39,15 +39,26 @@ enum tap_dance_codes {
 
 #define LOWER MO(_LOWER)
 #define RAISE LT(_RAISE,KC_BSPC)
-#define NUMP TG(_NUMPAD)
 #define ADJU MO(_ADJUST)
-#define ZMS LT(_MOUSE,KC_Z)
-#define OEMS LT(_MOUSE,KC_SLSH)
+#define EMS LT(_MOUSE,KC_E)
 #define WBSPC LCTL(KC_BSPC)
+
+/*Combos*/
+enum combos {
+  QW_ESC,
+  AS_TAB
+};
+
+const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM as_combo[] = {KC_A, LALT_T(KC_S), COMBO_END};
+
+combo_t key_combos[] = {
+  [QW_ESC] = COMBO(qw_combo, KC_ESC),
+  [AS_TAB] = COMBO(as_combo, KC_TAB),
+};
 
 
 /*drag scroll*/
-
 enum custom_keycodes {
     DRAG_SCROLL = SAFE_RANGE,
 };
@@ -114,19 +125,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_split_3x5_3(
-    KC_Q,            KC_W,           KC_E,           KC_R,          KC_T,       TD(DANCE_Y),    KC_U,           KC_I,           KC_O,          KC_P,
-    LSFT_T(KC_A),            LALT_T(KC_S),   LCTL_T(KC_D),   LGUI_T(KC_F),  KC_G,       KC_H,           RGUI_T(KC_J),   RCTL_T(KC_K),   RALT_T(KC_L),  RSFT_T(KC_SCLN),
-    ZMS,    TD(DANCE_X),    TD(DANCE_C),    TD(DANCE_V),   KC_B,       KC_N,           KC_M,           KC_COMM,        KC_DOT,        OEMS,
-                                    KC_ESC,         LOWER,         KC_ENTER,   KC_SPC,         RAISE,          KC_DEL
+    KC_Q,            KC_W,           EMS,           KC_R,          KC_T,       TD(DANCE_Y),    KC_U,           KC_I,           KC_O,          KC_P,
+    KC_A,            LALT_T(KC_S),   LCTL_T(KC_D),   LGUI_T(KC_F),  KC_G,       KC_H,   RGUI_T(KC_J),   RCTL_T(KC_K),   RALT_T(KC_L),  KC_SCLN,
+    LSFT_T(KC_Z),    TD(DANCE_X),    TD(DANCE_C),    TD(DANCE_V),   KC_B,       KC_N,           KC_M,           KC_COMM,        KC_DOT,        RSFT_T(KC_SLSH),
+                              ADJU,        LOWER,         KC_ENTER,   KC_SPC,         RAISE,             KC_DEL
     ),
 
 /* Lower */
-
 [_LOWER] = LAYOUT_split_3x5_3(
 LSFT(KC_1),      LSFT(KC_2),    LSFT(KC_3), LSFT(KC_4),     LSFT(KC_5), LSFT(KC_6),     LSFT(KC_7), LSFT(KC_8), LSFT(KC_9), LSFT(KC_0),
 RALT(KC_8),      KC_NUBS,       RALT(KC_7), RALT(KC_NUBS),  _______,    LSFT(KC_RBRC),  KC_MINUS,   KC_QUOTE,   KC_LBRC,    LSFT(KC_MINUS),
 RALT(KC_9),      LSFT(KC_NUBS), RALT(KC_0), RALT(KC_MINS),  _______,    LSFT(KC_BSLS),  KC_EQUAL,   KC_RBRC,    KC_BSLS,    _______,
-                                _______,    _______ ,       _______,    _______,        ADJU,    _______
+                                _______,    _______ ,       _______,    _______,        LCTL(KC_BSPC),    _______
 ),
 
 /* Raise */
@@ -135,22 +145,22 @@ RALT(KC_9),      LSFT(KC_NUBS), RALT(KC_0), RALT(KC_MINS),  _______,    LSFT(KC_
     TD(DANCE_1),   TD(DANCE_2),    TD(DANCE_3),    TD(DANCE_4),    KC_5,      KC_6,    KC_7,    KC_8,    KC_9,     KC_0,
     KC_F11,        KC_F12,         KC_PGUP,        KC_PGDN,        KC_HOME,   KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_END,
     KC_F1,         KC_F2,          KC_F3,          KC_F4,          KC_F5,     KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,
-                                   _______,        ADJU,        _______,  _______,  _______,  _______
+                                   KC_ESC,        _______,        _______,  _______,  _______,  _______
 ),
 
 
 [_ADJUST] = LAYOUT_split_3x5_3(
-    QK_BOOT,    DB_TOGG, _______, _______, _______,     RGB_TOG,        RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI,
-    _______,    _______, _______, _______, CG_TOGG,     _______,        _______, RGB_HUD,  RGB_SAD, RGB_VAD,
-    QK_BOOTLOADER,   _______, _______, _______, _______, _______,       _______, _______,  _______, QK_BOOTLOADER,
+    QK_BOOT,    DT_PRNT, KC_VOLU, _______, KC_Z,     RGB_TOG,        RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI,
+    _______,    DT_UP, KC_VOLD, _______, _______,     _______,        _______, RGB_HUD,  RGB_SAD, RGB_VAD,
+    QK_BOOTLOADER,   DT_DOWN, KC_MUTE, _______, _______, _______,       _______, _______,  _______, QK_BOOTLOADER,
                             _______, _______, _______, _______,         _______,  _______
 ),
 
 
 [_MOUSE] = LAYOUT_split_3x5_3(
-    QK_BOOT,    DB_TOGG, _______, _______, KC_Z,     RGB_TOG,        RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI,
+    QK_BOOT,    DB_TOGG, _______, DRAG_SCROLL, _______,    RGB_TOG,        RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI,
     _______,    _______, _______, _______, CG_TOGG,     _______,        _______, RGB_HUD,  RGB_SAD, RGB_VAD,
-    _______,    DRAG_SCROLL, _______, _______, _______, _______,       _______, _______,  _______, QK_BOOTLOADER,
+    _______,    _______, _______, _______, _______, _______,       _______, _______,  _______, QK_BOOTLOADER,
                                      KC_BTN3, KC_BTN2, KC_BTN1,         _______,         _______,  _______
 )
 };
@@ -160,7 +170,23 @@ RALT(KC_9),      LSFT(KC_NUBS), RALT(KC_0), RALT(KC_MINS),  _______,    LSFT(KC_
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-};
+}
+
+
+/*Hold_on_other_key_press_per_key*/
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LSFT_T(KC_Z):
+            // Immediately select the hold action when another key is pressed.
+            return true;
+        case RSFT_T(KC_SLSH):
+            return true;
+        default:
+            // Do not select the hold action when another key is pressed.
+            return false;
+    }
+}
+
 
 /*TapDance Code=============================================================================*/
 

@@ -12,13 +12,14 @@ RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 TAP_DANCE_ENABLE = yes      # Tap Dance
 TRI_LAYER_ENABLE = yes
-MOUSEKEY_ENABLE = yes
+COMBO_ENABLE = yes
+
 
 
 
 AUDIO_SUPPORTED = no        # Audio is not supported
 RGB_MATRIX_SUPPORTED = yes  # RGB matrix is supported and enabled by default
-RGBLIGHT_SUPPORTED = yes    # RGB underglow is supported, but not enabled by default
+RGBLIGHT_SUPPORTED = no    # RGB underglow is supported, but not enabled by default
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812
 
