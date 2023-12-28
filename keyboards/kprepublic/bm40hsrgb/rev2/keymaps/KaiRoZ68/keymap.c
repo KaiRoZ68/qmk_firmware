@@ -20,6 +20,7 @@ enum layers {
   _LOWER,
   _RAISE,
   _ADJUST,
+  _ARMA3,
   _NUMPAD
 };
 
@@ -31,6 +32,8 @@ enum tap_dance_codes {
     DANCE_5
 };
 
+#define QWERTZ TG(_QWERTY)
+#define ARMA3 TG(_ARMA3)
 #define LOWER MO(_LOWER)
 #define RAISE LT(_RAISE,KC_BSPC)
 #define NUMP TG(_NUMPAD)
@@ -71,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD,  _______ ,
     _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______,  _______,  _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,          _______, _______,  _______,  _______, _______
+    _______, _______, _______, _______, _______, _______,          _______, _______,  _______,  ARMA3, _______
   ),
 
 
@@ -82,7 +85,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LEFT, KC_DOWN,  KC_RIGHT, _______, _______, _______,  KC_KP_4,  KC_KP_5,  KC_KP_6, KC_PAST, KC_PENT,
     _______, _______, _______,  _______,  _______, _______, _______,  KC_KP_1,  KC_KP_2,  KC_KP_3, KC_PMNS, _______,
     NUMP   , _______, _______,  _______,  _______, _______,           KC_KP_0,  KC_PDOT,  KC_DOT , KC_PPLS, KC_NUM
+),
+
+
+/*ARMA3 Layer*/
+[_ARMA3] = LAYOUT_ortho_4x12_1x2uC(
+    QK_GESC,       KC_Q,    KC_W,           KC_E,           KC_R,           KC_T,      KC_Z,     KC_U,  KC_I,      KC_O,    KC_P,       KC_F1,
+    KC_LCAP,       KC_A,    KC_S,           KC_D,           KC_F,           KC_G,      KC_H,     KC_J,  KC_K,      KC_L,    KC_PGUP,    KC_ENTER,
+    KC_LSFT,       KC_Y,    KC_X,           KC_C,           KC_V,           KC_B,      KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_PGDN,    KC_RSFT,
+    KC_LCTL,       KC_PENT, KC_LGUI,        KC_LALT,        LOWER,          KC_SPC,              RAISE, KC_PMNS,   KC_PPLS, ARMA3,      KC_RCTL
 )
+
 
 };
 
