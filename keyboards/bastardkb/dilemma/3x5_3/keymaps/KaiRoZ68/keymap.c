@@ -167,11 +167,11 @@ RALT(KC_9),      LSFT(KC_NUBS), RALT(KC_0), RALT(KC_MINS),  _______,    LSFT(KC_
 
 
 // clang-format on
-
+/*
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
-
+*/
 
 /*Hold_on_other_key_press_per_key*/
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {

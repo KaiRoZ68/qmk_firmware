@@ -23,6 +23,10 @@ RGBLIGHT_SUPPORTED = no    # RGB underglow is supported, but not enabled by defa
 RGB_MATRIX_ENABLE = yes     # Enable keyboard RGB matrix functionality
 RGB_MATRIX_DRIVER = WS2812
 
+
+#Test
+WS2812_DRIVER_REQUIRED = yes
+
 SERIAL_DRIVER = vendor
 WS2812_DRIVER = vendor
 
