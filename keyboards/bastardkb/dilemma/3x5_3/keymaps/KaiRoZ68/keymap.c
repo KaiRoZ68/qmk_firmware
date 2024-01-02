@@ -151,7 +151,7 @@ RALT(KC_9),      LSFT(KC_NUBS), RALT(KC_0), RALT(KC_MINS),  _______,    LSFT(KC_
 
 [_ADJUST] = LAYOUT_split_3x5_3(
     QK_BOOT,    DT_PRNT, KC_VOLU, _______, KC_Z,     RGB_TOG,        RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI,
-    _______,    DT_UP, KC_VOLD, _______, _______,     _______,        _______, RGB_HUD,  RGB_SAD, RGB_VAD,
+    _______,    DT_UP, KC_VOLD, _______, _______,     _______,        RGB_RMOD, RGB_HUD,  RGB_SAD, RGB_VAD,
     QK_BOOTLOADER,   DT_DOWN, KC_MUTE, _______, _______, _______,       _______, _______,  _______, QK_BOOTLOADER,
                             _______, _______, _______, _______,         _______,  _______
 ),
