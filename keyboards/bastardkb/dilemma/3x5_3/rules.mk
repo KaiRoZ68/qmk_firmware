@@ -8,12 +8,14 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
-RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
+RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
+MAGIC_ENABLE = yes			# Magic keycodes
 TAP_DANCE_ENABLE = yes      # Tap Dance
 TRI_LAYER_ENABLE = yes
 COMBO_ENABLE = yes
-
+CAPS_WORD_ENABLE = yes		# Caps Word
+ENCODER_ENABLE	= no		# Enable encoder support
 
 
 
@@ -25,7 +27,7 @@ RGB_MATRIX_DRIVER = WS2812
 
 
 #Test
-WS2812_DRIVER_REQUIRED = yes
+#WS2812_DRIVER_REQUIRED = yes
 
 SERIAL_DRIVER = vendor
 WS2812_DRIVER = vendor

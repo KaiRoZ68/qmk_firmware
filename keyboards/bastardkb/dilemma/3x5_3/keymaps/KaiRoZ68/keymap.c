@@ -40,7 +40,7 @@ enum tap_dance_codes {
 #define LOWER MO(_LOWER)
 #define RAISE LT(_RAISE,KC_BSPC)
 #define ADJU MO(_ADJUST)
-#define EMS LT(_MOUSE,KC_E)
+#define QMS LT(_MOUSE,KC_Q)
 #define WBSPC LCTL(KC_BSPC)
 
 /*Combos*/
@@ -49,11 +49,11 @@ enum combos {
   AS_TAB
 };
 
-const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM as_combo[] = {KC_A, LALT_T(KC_S), COMBO_END};
+const uint16_t PROGMEM qw_combo[] = {QMS, KC_W, COMBO_END};
+const uint16_t PROGMEM as_combo[] = {KC_A, LGUI_T(KC_S), COMBO_END};
 
 combo_t key_combos[] = {
-  [QW_ESC] = COMBO(qw_combo, KC_ESC),
+  [QW_ESC] = COMBO(qw_combo, QK_GESC),
   [AS_TAB] = COMBO(as_combo, KC_TAB),
 };
 
@@ -125,8 +125,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_split_3x5_3(
-    KC_Q,            KC_W,           EMS,           KC_R,          KC_T,       TD(DANCE_Y),    KC_U,           KC_I,           KC_O,          KC_P,
-    KC_A,            LALT_T(KC_S),   LCTL_T(KC_D),   LGUI_T(KC_F),  KC_G,       KC_H,   RGUI_T(KC_J),   RCTL_T(KC_K),   RALT_T(KC_L),  KC_SCLN,
+    QMS,            KC_W,           KC_E,           KC_R,          KC_T,       TD(DANCE_Y),    KC_U,           KC_I,           KC_O,          KC_P,
+    KC_A,            LGUI_T(KC_S),   LALT_T(KC_D),   LCTL_T(KC_F),  KC_G,       KC_H,   RCTL_T(KC_J),   RALT_T(KC_K),   RGUI_T(KC_L),  KC_SCLN,
     LSFT_T(KC_Z),    TD(DANCE_X),    TD(DANCE_C),    TD(DANCE_V),   KC_B,       KC_N,           KC_M,           KC_COMM,        KC_DOT,        RSFT_T(KC_SLSH),
                               ADJU,        LOWER,         KC_ENTER,   KC_SPC,         RAISE,             KC_DEL
     ),
@@ -150,7 +150,7 @@ RALT(KC_9),      LSFT(KC_NUBS), RALT(KC_0), RALT(KC_MINS),  _______,    LSFT(KC_
 
 
 [_ADJUST] = LAYOUT_split_3x5_3(
-    QK_BOOT,    DT_PRNT, KC_VOLU, _______, KC_Z,     RGB_TOG,        RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI,
+    QK_BOOT,    DT_PRNT, KC_VOLU, _______, CG_TOGG,     RGB_TOG,        RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI,
     _______,    DT_UP, KC_VOLD, _______, _______,     _______,        RGB_RMOD, RGB_HUD,  RGB_SAD, RGB_VAD,
     QK_BOOTLOADER,   DT_DOWN, KC_MUTE, _______, _______, _______,       _______, _______,  _______, QK_BOOTLOADER,
                             _______, _______, _______, _______,         _______,  _______
@@ -158,10 +158,10 @@ RALT(KC_9),      LSFT(KC_NUBS), RALT(KC_0), RALT(KC_MINS),  _______,    LSFT(KC_
 
 
 [_MOUSE] = LAYOUT_split_3x5_3(
-    QK_BOOT,    DB_TOGG, _______, DRAG_SCROLL, _______,    RGB_TOG,        RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI,
-    _______,    _______, _______, _______, CG_TOGG,     _______,        _______, RGB_HUD,  RGB_SAD, RGB_VAD,
-    _______,    _______, _______, _______, _______, _______,       _______, _______,  _______, QK_BOOTLOADER,
-                                     KC_BTN3, KC_BTN2, KC_BTN1,         _______,         _______,  _______
+    _______, DRAG_SCROLL,   _______,_______,_______,        _______,_______,_______,_______,_______,
+    _______,_______,        _______,_______,_______,        _______,_______,_______,_______,_______,
+    _______,_______,        _______,_______,_______,        _______,_______,_______,_______,_______,
+                            KC_BTN3, KC_BTN2, KC_BTN1,    _______,_______,_______
 )
 };
 

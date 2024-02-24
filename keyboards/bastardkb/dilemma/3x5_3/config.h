@@ -29,8 +29,8 @@
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
 /* RGB settings. */
-//#define RGB_DI_PIN GP10
-#define WS2812_DI_PIN GP0  // Per-key.
+#define RGB_DI_PIN GP10
+//#define WS2812_DI_PIN GP0  // Per-key.
 //#define RGB_DI_PIN GP10 // Underglow.
 
 
@@ -91,9 +91,9 @@
 #define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 */
    //RGB settings.
-#define RGBLED_NUM 36
+#define RGBLED_NUM 72
 #define RGBLED_SPLIT \
-    { 18,18 }
+    { 36,36 }
 /* RGB matrix support. */
 #ifdef RGB_MATRIX_ENABLE
 #    define SPLIT_TRANSPORT_MIRROR

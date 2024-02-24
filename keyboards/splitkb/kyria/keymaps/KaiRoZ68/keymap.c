@@ -52,8 +52,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
     QK_GESC,       KC_Q,            KC_W,           KC_E,           KC_R,          KC_T,                                                              TD(DANCE_Y),   KC_U,           KC_I,       KC_O,          KC_P,              TD(DANCE_5),
-    KC_TAB,        KC_A,            LALT_T(KC_S),   LCTL_T(KC_D),   LGUI_T(KC_F),  KC_G,                                                              KC_H,   RGUI_T(KC_J),   RCTL_T(KC_K),      RALT_T(KC_L),  KC_SCLN,           KC_ENTER,
-    KC_LSFT,       LSFT_T(KC_Z),    TD(DANCE_X),    TD(DANCE_C),    TD(DANCE_V),   KC_B,  XXXXXXX,          CW_TOGG,          NUMP,  		  XXXXXXX,KC_N,   KC_M,           KC_COMM,   KC_DOT,        RSFT_T(KC_SLSH),   KC_RSFT,
+    KC_TAB,        KC_A,            KC_S,           KC_D,           KC_F,          KC_G,                                                              KC_H,          KC_J,         KC_K,      KC_L,  KC_SCLN,           KC_ENTER,
+    OSM(MOD_LSFT),       KC_Z,    TD(DANCE_X),    TD(DANCE_C),    TD(DANCE_V),   KC_B,  XXXXXXX,          CW_TOGG,          NUMP,  		  XXXXXXX,KC_N,   KC_M,           KC_COMM,   KC_DOT,        KC_SLSH,   OSM(MOD_RSFT),
                                                     KC_MUTE,        OSM(MOD_LCTL), LOWER, LGUI_T(KC_ENTER) ,LALT_T(KC_ENTER), RALT_T(KC_DEL), KC_SPC, RAISE,  OSM(MOD_RCTL),  XXXXXXX
 ),
 
